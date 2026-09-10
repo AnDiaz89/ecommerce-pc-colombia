@@ -17,51 +17,7 @@
         src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
 
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-
-        @keyframes aparecer {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes escanear {
-            0% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-
-            20% {
-                opacity: 1;
-            }
-
-            80% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(120px);
-                opacity: 0;
-            }
-        }
-
-.linea-escaner {
-    animation: escanear 1.4s linear infinite;
-}
-
-        .animar-entrada {
-            animation: aparecer 700ms ease-out both;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 
 <body
@@ -234,33 +190,6 @@
         </nav>
 
         <!-- Menú móvil -->
-         <button
-            type="button"
-            class="
-                flex w-full items-center justify-between
-                rounded-lg px-4 py-3 text-left
-                text-slate-300 transition
-                hover:bg-cyan-400/10 hover:text-cyan-300
-            "
-            @click="
-                carritoAbierto = true;
-                menuAbierto = false;
-            "
-        >
-            <span>Carrito</span>
-
-            <span
-                x-show="cantidadCarrito() > 0"
-                x-cloak
-                class="
-                    grid h-6 min-w-6 place-items-center
-                    rounded-full bg-fuchsia-500 px-1
-                    text-xs font-black text-white
-                "
-                x-text="cantidadCarrito()"
-            ></span>
-        </button>
-        <!-- Menú móvil -->
         <div
             id="menu-movil"
             class="
@@ -355,7 +284,7 @@
                 </a>
             </div>
         </div>
-        </header>
+    </header>
 
     <!-- Estado principal de la tienda -->
     <main
@@ -818,550 +747,542 @@
         </section>
 
         <section
-    id="asistente"
-    class="
-        relative mx-auto max-w-7xl
-        scroll-mt-24 px-6 py-24 lg:px-8
-    "
->
-    <div class="mb-12 max-w-3xl">
-        <p
+            id="asistente"
             class="
-                text-sm font-semibold uppercase
-                tracking-[0.3em] text-fuchsia-400
+                relative mx-auto max-w-7xl
+                scroll-mt-24 px-6 py-24 lg:px-8
             "
         >
-            Asistente inteligente
-        </p>
-
-        <h2
-            class="
-                mt-3 text-3xl font-black tracking-tight
-                sm:text-5xl
-            "
-        >
-            Diseña tu ensamble ideal
-        </h2>
-
-        <p class="mt-4 text-slate-400">
-            Cuéntanos tu presupuesto y necesidad. La IA analizará
-            el inventario real disponible.
-        </p>
-    </div>
-
-    <div class="grid gap-8 lg:grid-cols-2">
-        <!-- Formulario -->
-        <form
-            class="
-                rounded-3xl border border-white/10
-                bg-slate-900/70 p-6 shadow-2xl
-                shadow-black/20 backdrop-blur
-                sm:p-8
-            "
-            @submit.prevent="solicitarRecomendacion()"
-        >
-            <div class="grid gap-6 sm:grid-cols-2">
-                <label class="block">
-                    <span
-                        class="
-                            mb-2 block text-sm font-bold
-                            text-slate-300
-                        "
-                    >
-                        Presupuesto en COP
-                    </span>
-
-                    <input
-                        type="number"
-                        min="500000"
-                        max="50000000"
-                        step="100000"
-                        required
-                        x-model.number="formularioIA.presupuesto"
-                        class="
-                            w-full rounded-xl border border-slate-700
-                            bg-slate-950/80 px-4 py-3
-                            outline-none transition
-                            focus:border-cyan-400
-                            focus:ring-2 focus:ring-cyan-400/20
-                        "
-                    >
-                </label>
-
-                <label class="block">
-                    <span
-                        class="
-                            mb-2 block text-sm font-bold
-                            text-slate-300
-                        "
-                    >
-                        Necesidad
-                    </span>
-
-                    <select
-                        x-model="formularioIA.necesidad"
-                        class="
-                            w-full rounded-xl border border-slate-700
-                            bg-slate-950/80 px-4 py-3
-                            outline-none transition
-                            focus:border-cyan-400
-                            focus:ring-2 focus:ring-cyan-400/20
-                        "
-                    >
-                        <option value="gaming">Gaming</option>
-                        <option value="edicion_video">
-                            Edición de video
-                        </option>
-                        <option value="ofimatica">
-                            Ofimática
-                        </option>
-                        <option value="streaming">
-                            Streaming
-                        </option>
-                        <option value="diseno_3d">
-                            Diseño 3D
-                        </option>
-                    </select>
-                </label>
-
-                <label class="block sm:col-span-2">
-                    <span
-                        class="
-                            mb-2 block text-sm font-bold
-                            text-slate-300
-                        "
-                    >
-                        ¿Qué quieres hacer con el equipo?
-                    </span>
-
-                    <textarea
-                        rows="4"
-                        minlength="10"
-                        maxlength="500"
-                        required
-                        x-model="formularioIA.descripcion"
-                        placeholder="
-Ejemplo: quiero jugar Warzone y editar videos en 1080p.
-                        "
-                        class="
-                            w-full resize-none rounded-xl
-                            border border-slate-700 bg-slate-950/80
-                            px-4 py-3 outline-none transition
-                            focus:border-cyan-400
-                            focus:ring-2 focus:ring-cyan-400/20
-                        "
-                    ></textarea>
-                </label>
-
-                <label class="block">
-                    <span
-                        class="
-                            mb-2 block text-sm font-bold
-                            text-slate-300
-                        "
-                    >
-                        Resolución
-                    </span>
-
-                    <select
-                        x-model="formularioIA.resolucion"
-                        class="
-                            w-full rounded-xl border border-slate-700
-                            bg-slate-950/80 px-4 py-3
-                            outline-none transition
-                            focus:border-cyan-400
-                        "
-                    >
-                        <option value="1080p">1080p</option>
-                        <option value="1440p">1440p</option>
-                        <option value="4k">4K</option>
-                    </select>
-                </label>
-
-                <label class="block">
-                    <span
-                        class="
-                            mb-2 block text-sm font-bold
-                            text-slate-300
-                        "
-                    >
-                        Juegos separados por coma
-                    </span>
-
-                    <input
-                        type="text"
-                        x-model="formularioIA.juegosTexto"
-                        class="
-                            w-full rounded-xl border border-slate-700
-                            bg-slate-950/80 px-4 py-3
-                            outline-none transition
-                            focus:border-cyan-400
-                        "
-                    >
-                </label>
-            </div>
-
-            <button
-                type="submit"
-                :disabled="procesandoIA"
-                class="
-                    mt-8 w-full rounded-xl
-                    bg-gradient-to-r from-cyan-400
-                    to-fuchsia-500 px-6 py-4
-                    font-black text-slate-950
-                    transition duration-300
-                    hover:scale-[1.02]
-                    hover:shadow-[0_0_28px_rgba(168,85,247,0.35)]
-                    disabled:cursor-wait disabled:opacity-60
-                "
-            >
-                <span
-                    x-show="!procesandoIA"
-                >
-                    Crear recomendación
-                </span>
-
-                <span
-                    x-show="procesandoIA"
-                    x-cloak
-                >
-                    Analizando inventario...
-                </span>
-            </button>
-        </form>
-
-        <!-- Panel de respuesta -->
-        <div
-            class="
-                relative min-h-[460px] overflow-hidden
-                rounded-3xl border border-fuchsia-400/20
-                bg-slate-900/70 p-6
-                shadow-2xl shadow-fuchsia-950/20
-                sm:p-8
-            "
-        >
-            <!-- Estado inicial -->
-            <div
-                x-show="
-                    !procesandoIA
-                    && !errorIA
-                    && !recomendacionIA
-                "
-                class="
-                    grid h-full min-h-[390px]
-                    place-items-center text-center
-                "
-            >
-                <div>
-                    <div
-                        class="
-                            mx-auto grid h-20 w-20 place-items-center
-                            rounded-2xl border border-fuchsia-400/30
-                            bg-fuchsia-400/10
-                            text-3xl text-fuchsia-300
-                        "
-                    >
-                        IA
-                    </div>
-
-                    <h3 class="mt-6 text-2xl font-black">
-                        Esperando tu solicitud
-                    </h3>
-
-                    <p class="mt-3 max-w-sm text-slate-400">
-                        La recomendación utilizará únicamente productos
-                        activos y con stock.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Loader de escaneo -->
-            <div
-                x-show="procesandoIA"
-                x-cloak
-                class="
-                    relative grid h-full min-h-[390px]
-                    place-items-center overflow-hidden
-                "
-            >
-                <div
-                    class="
-                        linea-escaner absolute left-8 right-8 top-1/3
-                        h-px bg-gradient-to-r
-                        from-transparent via-cyan-300 to-transparent
-                        shadow-[0_0_18px_#22d3ee]
-                    "
-                ></div>
-
-                <div class="text-center">
-                    <div
-                        class="
-                            mx-auto h-16 w-16 animate-spin
-                            rounded-full border-4 border-slate-700
-                            border-t-cyan-400 border-r-fuchsia-400
-                        "
-                    ></div>
-
-                    <p
-                        class="
-                            mt-6 font-bold tracking-wide
-                            text-cyan-200
-                        "
-                    >
-                        Gemini está analizando...
-                    </p>
-
-                    <p class="mt-2 text-sm text-slate-500">
-                        Validando presupuesto, stock y rendimiento.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Error -->
-            <div
-                x-show="errorIA && !procesandoIA"
-                x-cloak
-                class="
-                    rounded-2xl border border-red-400/30
-                    bg-red-400/10 p-5 text-red-200
-                "
-            >
-                <p class="font-bold">No fue posible recomendar</p>
-                <p class="mt-2" x-text="errorIA"></p>
-            </div>
-
-            <!-- Resultado -->
-        <div
-            x-show="
-                recomendacionIA
-                && !procesandoIA
-                && !errorIA
-            "
-            x-cloak
-        >
-
-            <div
-                class="mt-8"
-
-            <div
-                class="mt-8"
-                x-show="
-                    (recomendacionIA?.fps_estimados || []).length > 0
-                "
-            >
-    <h4 class="font-black text-white">
-        Rendimiento estimado
-    </h4>
-
-    <p class="mt-2 text-sm text-slate-500">
-        Rangos orientativos. El rendimiento real depende de
-        drivers, memoria, temperatura, versión del juego y ajustes.
-    </p>
-
-    <div class="mt-4 grid gap-3 sm:grid-cols-2">
-        <template
-            x-for="
-                estimacion
-                in recomendacionIA?.fps_estimados || []
-            "
-            :key="
-                estimacion.juego
-                + estimacion.configuracion
-            "
-        >
-            <div
-                class="
-                    rounded-xl border border-fuchsia-400/20
-                    bg-fuchsia-400/5 p-4
-                    transition duration-300
-                    hover:border-fuchsia-400/50
-                    hover:bg-fuchsia-400/10
-                "
-            >
-                <div
-                    class="
-                        flex items-start
-                        justify-between gap-4
-                    "
-                >
-                    <div>
-                        <p
-                            class="font-black text-white"
-                            x-text="estimacion.juego"
-                        ></p>
-
-                        <p
-                            class="
-                                mt-1 text-xs
-                                text-slate-500
-                            "
-                            x-text="
-                                estimacion.configuracion
-                            "
-                        ></p>
-                    </div>
-
-                    <div class="text-right">
-                        <p
-                            class="
-                                text-xl font-black
-                                text-fuchsia-300
-                            "
-                            x-text="
-                                estimacion.fps_minimo
-                                + '–'
-                                + estimacion.fps_maximo
-                            "
-                        ></p>
-
-                        <p class="text-xs text-slate-500">
-                            FPS aprox.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </template>
-    </div>
-</div>
-
-<div
-    class="mt-8"
-    x-show="
-        (recomendacionIA?.advertencias || []).length > 0
-    "
->
-    <h4 class="font-black text-amber-200">
-        Consideraciones importantes
-    </h4>
-
-    <div class="mt-4 space-y-3">
-        <template
-            x-for="
-                (advertencia, indice)
-                in recomendacionIA?.advertencias || []
-            "
-            :key="indice"
-        >
-            <div
-                class="
-                    flex items-start gap-3
-                    rounded-xl border border-amber-400/20
-                    bg-amber-400/5 p-4
-                    text-sm leading-6 text-amber-100
-                "
-            >
-                <span
-                    class="
-                        mt-0.5 grid h-6 w-6 shrink-0
-                        place-items-center rounded-full
-                        bg-amber-400/15 font-black
-                        text-amber-300
-                    "
-                >
-                    !
-                </span>
-
-                <p x-text="advertencia"></p>
-            </div>
-        </template>
-    </div>
-</div>
-
-            
-            
-                <div
-                    class="
-                        flex items-center justify-between
-                        border-b border-white/10 pb-5
-                    "
-                >
-                    <div>
-                        <p class="text-sm text-slate-400">
-                        
-                        </p>
-
-                        <p
-                            class="
-                                text-3xl font-black text-cyan-300
-                            "
-                            x-text="
-                                formatearPrecio(
-                                    recomendacionIA?.total_estimado
-                                    || 0
-                                )
-                            "
-                        ></p>
-                    </div>
-
-                    <span
-                        class="
-                            rounded-full px-3 py-1 text-xs font-bold
-                        "
-                        :class="
-                            recomendacionIA?.presupuesto_viable
-                                ? 'bg-emerald-400/15 text-emerald-300'
-                                : 'bg-amber-400/15 text-amber-300'
-                        "
-                        x-text="
-                            recomendacionIA?.presupuesto_viable
-                                ? 'Presupuesto viable'
-                                : 'Requiere ajustes'
-                        "
-                    ></span>
-                </div>
-
+            <div class="mb-12 max-w-3xl">
                 <p
-                    class="mt-6 leading-7 text-slate-300"
-                    x-text="recomendacionIA?.explicacion"
-                ></p>
+                    class="
+                        text-sm font-semibold uppercase
+                        tracking-[0.3em] text-fuchsia-400
+                    "
+                >
+                    Asistente inteligente
+                </p>
 
-                <h4 class="mt-7 font-black text-white">
-                    Componentes seleccionados
-                </h4>
+                <h2
+                    class="
+                        mt-3 text-3xl font-black tracking-tight
+                        sm:text-5xl
+                    "
+                >
+                    Diseña tu ensamble ideal
+                </h2>
 
-                <div class="mt-4 space-y-3">
-                    <template
-                        x-for="
-                            componente
-                            in recomendacionIA?.componentes || []
+                <p class="mt-4 text-slate-400">
+                    Cuéntanos tu presupuesto y necesidad. La IA analizará
+                    el inventario real disponible.
+                </p>
+            </div>
+
+            <div class="grid gap-8 lg:grid-cols-2">
+                <!-- Formulario -->
+                <form
+                    class="
+                        rounded-3xl border border-white/10
+                        bg-slate-900/70 p-6 shadow-2xl
+                        shadow-black/20 backdrop-blur
+                        sm:p-8
+                    "
+                    @submit.prevent="solicitarRecomendacion()"
+                >
+                    <div class="grid gap-6 sm:grid-cols-2">
+                        <label class="block">
+                            <span
+                                class="
+                                    mb-2 block text-sm font-bold
+                                    text-slate-300
+                                "
+                            >
+                                Presupuesto en COP
+                            </span>
+
+                            <input
+                                type="number"
+                                min="500000"
+                                max="50000000"
+                                step="100000"
+                                required
+                                x-model.number="formularioIA.presupuesto"
+                                class="
+                                    w-full rounded-xl border border-slate-700
+                                    bg-slate-950/80 px-4 py-3
+                                    outline-none transition
+                                    focus:border-cyan-400
+                                    focus:ring-2 focus:ring-cyan-400/20
+                                "
+                            >
+                        </label>
+
+                        <label class="block">
+                            <span
+                                class="
+                                    mb-2 block text-sm font-bold
+                                    text-slate-300
+                                "
+                            >
+                                Necesidad
+                            </span>
+
+                            <select
+                                x-model="formularioIA.necesidad"
+                                class="
+                                    w-full rounded-xl border border-slate-700
+                                    bg-slate-950/80 px-4 py-3
+                                    outline-none transition
+                                    focus:border-cyan-400
+                                    focus:ring-2 focus:ring-cyan-400/20
+                                "
+                            >
+                                <option value="gaming">Gaming</option>
+                                <option value="edicion_video">
+                                    Edición de video
+                                </option>
+                                <option value="ofimatica">
+                                    Ofimática
+                                </option>
+                                <option value="streaming">
+                                    Streaming
+                                </option>
+                                <option value="diseno_3d">
+                                    Diseño 3D
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="block sm:col-span-2">
+                            <span
+                                class="
+                                    mb-2 block text-sm font-bold
+                                    text-slate-300
+                                "
+                            >
+                                ¿Qué quieres hacer con el equipo?
+                            </span>
+
+                            <textarea
+                                rows="4"
+                                minlength="10"
+                                maxlength="500"
+                                required
+                                x-model="formularioIA.descripcion"
+                                placeholder="
+Ejemplo: quiero jugar Warzone y editar videos en 1080p.
+                                "
+                                class="
+                                    w-full resize-none rounded-xl
+                                    border border-slate-700 bg-slate-950/80
+                                    px-4 py-3 outline-none transition
+                                    focus:border-cyan-400
+                                    focus:ring-2 focus:ring-cyan-400/20
+                                "
+                            ></textarea>
+                        </label>
+
+                        <label class="block">
+                            <span
+                                class="
+                                    mb-2 block text-sm font-bold
+                                    text-slate-300
+                                "
+                            >
+                                Resolución
+                            </span>
+
+                            <select
+                                x-model="formularioIA.resolucion"
+                                class="
+                                    w-full rounded-xl border border-slate-700
+                                    bg-slate-950/80 px-4 py-3
+                                    outline-none transition
+                                    focus:border-cyan-400
+                                "
+                            >
+                                <option value="1080p">1080p</option>
+                                <option value="1440p">1440p</option>
+                                <option value="4k">4K</option>
+                            </select>
+                        </label>
+
+                        <label class="block">
+                            <span
+                                class="
+                                    mb-2 block text-sm font-bold
+                                    text-slate-300
+                                "
+                            >
+                                Juegos separados por coma
+                            </span>
+
+                            <input
+                                type="text"
+                                x-model="formularioIA.juegosTexto"
+                                class="
+                                    w-full rounded-xl border border-slate-700
+                                    bg-slate-950/80 px-4 py-3
+                                    outline-none transition
+                                    focus:border-cyan-400
+                                "
+                            >
+                        </label>
+                    </div>
+
+                    <button
+                        type="submit"
+                        :disabled="procesandoIA"
+                        class="
+                            mt-8 w-full rounded-xl
+                            bg-gradient-to-r from-cyan-400
+                            to-fuchsia-500 px-6 py-4
+                            font-black text-slate-950
+                            transition duration-300
+                            hover:scale-[1.02]
+                            hover:shadow-[0_0_28px_rgba(168,85,247,0.35)]
+                            disabled:cursor-wait disabled:opacity-60
                         "
-                        :key="componente.producto_id"
+                    >
+                        <span
+                            x-show="!procesandoIA"
+                        >
+                            Crear recomendación
+                        </span>
+
+                        <span
+                            x-show="procesandoIA"
+                            x-cloak
+                        >
+                            Analizando inventario...
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Panel de respuesta -->
+                <div
+                    class="
+                        relative min-h-[460px] overflow-hidden
+                        rounded-3xl border border-fuchsia-400/20
+                        bg-slate-900/70 p-6
+                        shadow-2xl shadow-fuchsia-950/20
+                        sm:p-8
+                    "
+                >
+                    <!-- Estado inicial -->
+                    <div
+                        x-show="
+                            !procesandoIA
+                            && !errorIA
+                            && !recomendacionIA
+                        "
+                        class="
+                            grid h-full min-h-[390px]
+                            place-items-center text-center
+                        "
+                    >
+                        <div>
+                            <div
+                                class="
+                                    mx-auto grid h-20 w-20 place-items-center
+                                    rounded-2xl border border-fuchsia-400/30
+                                    bg-fuchsia-400/10
+                                    text-3xl text-fuchsia-300
+                                "
+                            >
+                                IA
+                            </div>
+
+                            <h3 class="mt-6 text-2xl font-black">
+                                Esperando tu solicitud
+                            </h3>
+
+                            <p class="mt-3 max-w-sm text-slate-400">
+                                La recomendación utilizará únicamente productos
+                                activos y con stock.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Loader de escaneo -->
+                    <div
+                        x-show="procesandoIA"
+                        x-cloak
+                        class="
+                            relative grid h-full min-h-[390px]
+                            place-items-center overflow-hidden
+                        "
                     >
                         <div
                             class="
-                                flex items-center justify-between gap-4
-                                rounded-xl border border-white/10
-                                bg-slate-950/60 p-4
+                                linea-escaner absolute left-8 right-8 top-1/3
+                                h-px bg-gradient-to-r
+                                from-transparent via-cyan-300 to-transparent
+                                shadow-[0_0_18px_#22d3ee]
+                            "
+                        ></div>
+
+                        <div class="text-center">
+                            <div
+                                class="
+                                    mx-auto h-16 w-16 animate-spin
+                                    rounded-full border-4 border-slate-700
+                                    border-t-cyan-400 border-r-fuchsia-400
+                                "
+                            ></div>
+
+                            <p
+                                class="
+                                    mt-6 font-bold tracking-wide
+                                    text-cyan-200
+                                "
+                            >
+                                Gemini está analizando...
+                            </p>
+
+                            <p class="mt-2 text-sm text-slate-500">
+                                Validando presupuesto, stock y rendimiento.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Error -->
+                    <div
+                        x-show="errorIA && !procesandoIA"
+                        x-cloak
+                        class="
+                            rounded-2xl border border-red-400/30
+                            bg-red-400/10 p-5 text-red-200
+                        "
+                    >
+                        <p class="font-bold">No fue posible recomendar</p>
+                        <p class="mt-2" x-text="errorIA"></p>
+                    </div>
+
+                    <!-- Resultado -->
+                    <div
+                        x-show="
+                            recomendacionIA
+                            && !procesandoIA
+                            && !errorIA
+                        "
+                        x-cloak
+                    >
+                        <div
+                            class="
+                                flex items-center justify-between
+                                border-b border-white/10 pb-5
                             "
                         >
                             <div>
-                                <p
-                                    class="font-bold"
-                                    x-text="componente.nombre"
-                                ></p>
+                                <p class="text-sm text-slate-400"></p>
 
                                 <p
-                                    class="text-xs text-slate-500"
-                                    x-text="componente.categoria"
+                                    class="
+                                        text-3xl font-black text-cyan-300
+                                    "
+                                    x-text="
+                                        formatearPrecio(
+                                            recomendacionIA?.total_estimado
+                                            || 0
+                                        )
+                                    "
                                 ></p>
                             </div>
 
-                            <p
-                                class="font-black text-cyan-300"
-                                x-text="
-                                    formatearPrecio(
-                                        componente.precio
-                                        * componente.cantidad
-                                    )
+                            <span
+                                class="
+                                    rounded-full px-3 py-1 text-xs font-bold
                                 "
-                            ></p>
+                                :class="
+                                    recomendacionIA?.presupuesto_viable
+                                        ? 'bg-emerald-400/15 text-emerald-300'
+                                        : 'bg-amber-400/15 text-amber-300'
+                                "
+                                x-text="
+                                    recomendacionIA?.presupuesto_viable
+                                        ? 'Presupuesto viable'
+                                        : 'Requiere ajustes'
+                                "
+                            ></span>
                         </div>
-                    </template>
+
+                        <p
+                            class="mt-6 leading-7 text-slate-300"
+                            x-text="recomendacionIA?.explicacion"
+                        ></p>
+
+                        <h4 class="mt-7 font-black text-white">
+                            Componentes seleccionados
+                        </h4>
+
+                        <div class="mt-4 space-y-3">
+                            <template
+                                x-for="
+                                    componente
+                                    in recomendacionIA?.componentes || []
+                                "
+                                :key="componente.producto_id"
+                            >
+                                <div
+                                    class="
+                                        flex items-center justify-between gap-4
+                                        rounded-xl border border-white/10
+                                        bg-slate-950/60 p-4
+                                    "
+                                >
+                                    <div>
+                                        <p
+                                            class="font-bold"
+                                            x-text="componente.nombre"
+                                        ></p>
+
+                                        <p
+                                            class="text-xs text-slate-500"
+                                            x-text="componente.categoria"
+                                        ></p>
+                                    </div>
+
+                                    <p
+                                        class="font-black text-cyan-300"
+                                        x-text="
+                                            formatearPrecio(
+                                                componente.precio
+                                                * componente.cantidad
+                                            )
+                                        "
+                                    ></p>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div
+                            class="mt-8"
+                            x-show="
+                                (recomendacionIA?.fps_estimados || []).length > 0
+                            "
+                        >
+                            <h4 class="font-black text-white">
+                                Rendimiento estimado
+                            </h4>
+
+                            <p class="mt-2 text-sm text-slate-500">
+                                Rangos orientativos. El rendimiento real depende de
+                                drivers, memoria, temperatura, versión del juego y ajustes.
+                            </p>
+
+                            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                                <template
+                                    x-for="
+                                        estimacion
+                                        in recomendacionIA?.fps_estimados || []
+                                    "
+                                    :key="
+                                        estimacion.juego
+                                        + estimacion.configuracion
+                                    "
+                                >
+                                    <div
+                                        class="
+                                            rounded-xl border border-fuchsia-400/20
+                                            bg-fuchsia-400/5 p-4
+                                            transition duration-300
+                                            hover:border-fuchsia-400/50
+                                            hover:bg-fuchsia-400/10
+                                        "
+                                    >
+                                        <div
+                                            class="
+                                                flex items-start
+                                                justify-between gap-4
+                                            "
+                                        >
+                                            <div>
+                                                <p
+                                                    class="font-black text-white"
+                                                    x-text="estimacion.juego"
+                                                ></p>
+
+                                                <p
+                                                    class="
+                                                        mt-1 text-xs
+                                                        text-slate-500
+                                                    "
+                                                    x-text="
+                                                        estimacion.configuracion
+                                                    "
+                                                ></p>
+                                            </div>
+
+                                            <div class="text-right">
+                                                <p
+                                                    class="
+                                                        text-xl font-black
+                                                        text-fuchsia-300
+                                                    "
+                                                    x-text="
+                                                        estimacion.fps_minimo
+                                                        + '–'
+                                                        + estimacion.fps_maximo
+                                                    "
+                                                ></p>
+
+                                                <p class="text-xs text-slate-500">
+                                                    FPS aprox.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div
+                            class="mt-8"
+                            x-show="
+                                (recomendacionIA?.advertencias || []).length > 0
+                            "
+                        >
+                            <h4 class="font-black text-amber-200">
+                                Consideraciones importantes
+                            </h4>
+
+                            <div class="mt-4 space-y-3">
+                                <template
+                                    x-for="
+                                        (advertencia, indice)
+                                        in recomendacionIA?.advertencias || []
+                                    "
+                                    :key="indice"
+                                >
+                                    <div
+                                        class="
+                                            flex items-start gap-3
+                                            rounded-xl border border-amber-400/20
+                                            bg-amber-400/5 p-4
+                                            text-sm leading-6 text-amber-100
+                                        "
+                                    >
+                                        <span
+                                            class="
+                                                mt-0.5 grid h-6 w-6 shrink-0
+                                                place-items-center rounded-full
+                                                bg-amber-400/15 font-black
+                                                text-amber-300
+                                            "
+                                        >
+                                            !
+                                        </span>
+
+                                        <p x-text="advertencia"></p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- Notificación -->
         <div
@@ -1409,658 +1330,347 @@ Ejemplo: quiero jugar Warzone y editar videos en 1080p.
         </div>
     </main>
 
-<!-- Carrito lateral -->
-<div
-    x-show="carritoAbierto"
-    x-cloak
-    class="fixed inset-0 z-[70]"
-    @keydown.escape.window="carritoAbierto = false"
->
-    <!-- Fondo oscuro -->
+    <!-- Carrito lateral -->
     <div
         x-show="carritoAbierto"
-        x-transition:enter="transition-opacity duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition-opacity duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="absolute inset-0 bg-black/70 backdrop-blur-sm"
-        @click="carritoAbierto = false"
-    ></div>
-
-    <!-- Panel -->
-    <aside
-        x-show="carritoAbierto"
-        x-transition:enter="
-            transform transition ease-out duration-300
-        "
-        x-transition:enter-start="translate-x-full"
-        x-transition:enter-end="translate-x-0"
-        x-transition:leave="
-            transform transition ease-in duration-250
-        "
-        x-transition:leave-start="translate-x-0"
-        x-transition:leave-end="translate-x-full"
-        class="
-            absolute inset-y-0 right-0
-            flex w-full max-w-md flex-col
-            border-l border-cyan-400/20
-            bg-slate-950
-            shadow-[-20px_0_60px_rgba(0,0,0,0.45)]
-        "
-        role="dialog"
-        aria-modal="true"
-        aria-label="Carrito de compras"
+        x-cloak
+        class="fixed inset-0 z-[70]"
+        @keydown.escape.window="carritoAbierto = false"
     >
-        <!-- Encabezado -->
+        <!-- Fondo oscuro -->
         <div
-            class="
-                flex items-center justify-between
-                border-b border-white/10 px-6 py-5
+            x-show="carritoAbierto"
+            x-transition:enter="transition-opacity duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition-opacity duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            @click="carritoAbierto = false"
+        ></div>
+
+        <!-- Panel -->
+        <aside
+            x-show="carritoAbierto"
+            x-transition:enter="
+                transform transition ease-out duration-300
             "
-        >
-            <div>
-                <p
-                    class="
-                        text-xs font-bold uppercase
-                        tracking-[0.25em] text-cyan-400
-                    "
-                >
-                    Tu selección
-                </p>
-
-                <h2 class="mt-1 text-2xl font-black">
-                    Carrito
-                </h2>
-            </div>
-
-            <button
-                type="button"
-                class="
-                    grid h-10 w-10 place-items-center
-                    rounded-xl border border-slate-700
-                    text-xl text-slate-300 transition
-                    hover:rotate-90 hover:border-cyan-400
-                    hover:text-cyan-300
-                "
-                @click="carritoAbierto = false"
-                aria-label="Cerrar carrito"
-            >
-                ×
-            </button>
-        </div>
-
-        <!-- Contenido -->
-        <div class="flex-1 overflow-y-auto px-6 py-5">
-            <!-- Carrito vacío -->
-            <div
-                x-show="carrito.length === 0"
-                class="
-                    grid min-h-[420px]
-                    place-items-center text-center
-                "
-            >
-                <div>
-                    <div
-                        class="
-                            mx-auto grid h-20 w-20
-                            place-items-center rounded-2xl
-                            border border-slate-700
-                            bg-slate-900 text-3xl
-                        "
-                    >
-                        🛒
-                    </div>
-
-                    <h3 class="mt-6 text-xl font-black">
-                        Tu carrito está vacío
-                    </h3>
-
-                    <p class="mt-2 text-slate-400">
-                        Agrega componentes desde el catálogo.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="
-                            mt-6 rounded-xl bg-cyan-400
-                            px-5 py-3 font-bold text-slate-950
-                            transition hover:scale-105
-                            hover:bg-cyan-300
-                        "
-                        @click="carritoAbierto = false"
-                    >
-                        Ver productos
-                    </button>
-                </div>
-            </div>
-
-            <!-- Productos del carrito -->
-            <div
-                x-show="carrito.length > 0"
-                class="space-y-4"
-            >
-                <template
-                    x-for="item in carrito"
-                    :key="item.id"
-                >
-                    <article
-                        class="
-                            rounded-2xl border border-white/10
-                            bg-slate-900/70 p-4
-                        "
-                    >
-                        <div class="flex gap-4">
-                            <!-- Imagen -->
-                            <div
-                                class="
-                                    h-20 w-20 shrink-0 overflow-hidden
-                                    rounded-xl bg-slate-800
-                                "
-                            >
-                                <img
-                                    x-show="item.imagen_url"
-                                    :src="item.imagen_url"
-                                    :alt="item.nombre"
-                                    class="
-                                        h-full w-full object-cover
-                                    "
-                                >
-
-                                <div
-                                    x-show="!item.imagen_url"
-                                    class="
-                                        grid h-full place-items-center
-                                        text-xs text-slate-500
-                                    "
-                                >
-                                    Sin imagen
-                                </div>
-                            </div>
-
-                            <!-- Información -->
-                            <div class="min-w-0 flex-1">
-                                <h3
-                                    class="
-                                        truncate font-black
-                                        text-white
-                                    "
-                                    x-text="item.nombre"
-                                ></h3>
-
-                                <p
-                                    class="
-                                        mt-1 font-bold
-                                        text-cyan-300
-                                    "
-                                    x-text="
-                                        formatearPrecio(item.precio)
-                                    "
-                                ></p>
-
-                                <p
-                                    class="
-                                        mt-1 text-xs
-                                        text-slate-500
-                                    "
-                                    x-text="
-                                        item.stock
-                                        + ' unidades disponibles'
-                                    "
-                                ></p>
-                            </div>
-
-                            <button
-                                type="button"
-                                class="
-                                    self-start text-slate-500
-                                    transition hover:text-red-300
-                                "
-                                @click="eliminarDelCarrito(item.id)"
-                                aria-label="Eliminar producto"
-                            >
-                                ×
-                            </button>
-                        </div>
-
-                        <!-- Cantidad y subtotal -->
-                        <div
-                            class="
-                                mt-4 flex items-center
-                                justify-between gap-4
-                            "
-                        >
-                            <div
-                                class="
-                                    flex items-center rounded-xl
-                                    border border-slate-700
-                                    bg-slate-950
-                                "
-                            >
-                                <button
-                                    type="button"
-                                    class="
-                                        h-9 w-9 font-black
-                                        text-slate-300 transition
-                                        hover:text-cyan-300
-                                    "
-                                    @click="disminuirCantidad(item)"
-                                >
-                                    −
-                                </button>
-
-                                <span
-                                    class="
-                                        min-w-10 text-center
-                                        font-black
-                                    "
-                                    x-text="item.cantidad"
-                                ></span>
-
-                                <button
-                                    type="button"
-                                    class="
-                                        h-9 w-9 font-black
-                                        text-slate-300 transition
-                                        hover:text-cyan-300
-                                    "
-                                    @click="aumentarCantidad(item)"
-                                >
-                                    +
-                                </button>
-                            </div>
-
-                            <p
-                                class="
-                                    text-right font-black
-                                    text-white
-                                "
-                                x-text="
-                                    formatearPrecio(
-                                        item.precio
-                                        * item.cantidad
-                                    )
-                                "
-                            ></p>
-                        </div>
-                    </article>
-                </template>
-            </div>
-        </div>
-
-        <!-- Resumen -->
-        <div
-            x-show="carrito.length > 0"
-            class="
-                border-t border-white/10
-                bg-slate-950/95 px-6 py-5
+            x-transition:enter-start="translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="
+                transform transition ease-in duration-250
             "
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="translate-x-full"
+            class="
+                absolute inset-y-0 right-0
+                flex w-full max-w-md flex-col
+                border-l border-cyan-400/20
+                bg-slate-950
+                shadow-[-20px_0_60px_rgba(0,0,0,0.45)]
+            "
+            role="dialog"
+            aria-modal="true"
+            aria-label="Carrito de compras"
         >
+            <!-- Encabezado -->
             <div
                 class="
                     flex items-center justify-between
-                    text-slate-400
+                    border-b border-white/10 px-6 py-5
                 "
             >
-                <span>Productos</span>
+                <div>
+                    <p
+                        class="
+                            text-xs font-bold uppercase
+                            tracking-[0.25em] text-cyan-400
+                        "
+                    >
+                        Tu selección
+                    </p>
 
-                <span
-                    x-text="cantidadCarrito()"
-                ></span>
-            </div>
+                    <h2 class="mt-1 text-2xl font-black">
+                        Carrito
+                    </h2>
+                </div>
 
-            <div
-                class="
-                    mt-3 flex items-center justify-between
-                "
-            >
-                <span class="text-lg font-bold">
-                    Total
-                </span>
-
-                <span
+                <button
+                    type="button"
                     class="
-                        text-2xl font-black text-cyan-300
+                        grid h-10 w-10 place-items-center
+                        rounded-xl border border-slate-700
+                        text-xl text-slate-300 transition
+                        hover:rotate-90 hover:border-cyan-400
+                        hover:text-cyan-300
                     "
-                    x-text="formatearPrecio(totalCarrito())"
-                ></span>
+                    @click="carritoAbierto = false"
+                    aria-label="Cerrar carrito"
+                >
+                    ×
+                </button>
             </div>
 
-            <p class="mt-3 text-xs leading-5 text-slate-500">
-                Los precios y el stock serán validados nuevamente
-                por el servidor antes del pago.
-            </p>
+            <!-- Contenido -->
+            <div class="flex-1 overflow-y-auto px-6 py-5">
+                <!-- Carrito vacío -->
+                <div
+                    x-show="carrito.length === 0"
+                    class="
+                        grid min-h-[420px]
+                        place-items-center text-center
+                    "
+                >
+                    <div>
+                        <div
+                            class="
+                                mx-auto grid h-20 w-20
+                                place-items-center rounded-2xl
+                                border border-slate-700
+                                bg-slate-900 text-3xl
+                            "
+                        >
+                            🛒
+                        </div>
 
-            <button
-                type="button"
+                        <h3 class="mt-6 text-xl font-black">
+                            Tu carrito está vacío
+                        </h3>
+
+                        <p class="mt-2 text-slate-400">
+                            Agrega componentes desde el catálogo.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="
+                                mt-6 rounded-xl bg-cyan-400
+                                px-5 py-3 font-bold text-slate-950
+                                transition hover:scale-105
+                                hover:bg-cyan-300
+                            "
+                            @click="carritoAbierto = false"
+                        >
+                            Ver productos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Productos del carrito -->
+                <div
+                    x-show="carrito.length > 0"
+                    class="space-y-4"
+                >
+                    <template
+                        x-for="item in carrito"
+                        :key="item.id"
+                    >
+                        <article
+                            class="
+                                rounded-2xl border border-white/10
+                                bg-slate-900/70 p-4
+                            "
+                        >
+                            <div class="flex gap-4">
+                                <!-- Imagen -->
+                                <div
+                                    class="
+                                        h-20 w-20 shrink-0 overflow-hidden
+                                        rounded-xl bg-slate-800
+                                    "
+                                >
+                                    <img
+                                        x-show="item.imagen_url"
+                                        :src="item.imagen_url"
+                                        :alt="item.nombre"
+                                        class="
+                                            h-full w-full object-cover
+                                        "
+                                    >
+
+                                    <div
+                                        x-show="!item.imagen_url"
+                                        class="
+                                            grid h-full place-items-center
+                                            text-xs text-slate-500
+                                        "
+                                    >
+                                        Sin imagen
+                                    </div>
+                                </div>
+
+                                <!-- Información -->
+                                <div class="min-w-0 flex-1">
+                                    <h3
+                                        class="
+                                            truncate font-black
+                                            text-white
+                                        "
+                                        x-text="item.nombre"
+                                    ></h3>
+
+                                    <p
+                                        class="
+                                            mt-1 font-bold
+                                            text-cyan-300
+                                        "
+                                        x-text="
+                                            formatearPrecio(item.precio)
+                                        "
+                                    ></p>
+
+                                    <p
+                                        class="
+                                            mt-1 text-xs
+                                            text-slate-500
+                                        "
+                                        x-text="
+                                            item.stock
+                                            + ' unidades disponibles'
+                                        "
+                                    ></p>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="
+                                        self-start text-slate-500
+                                        transition hover:text-red-300
+                                    "
+                                    @click="eliminarDelCarrito(item.id)"
+                                    aria-label="Eliminar producto"
+                                >
+                                    ×
+                                </button>
+                            </div>
+
+                            <!-- Cantidad y subtotal -->
+                            <div
+                                class="
+                                    mt-4 flex items-center
+                                    justify-between gap-4
+                                "
+                            >
+                                <div
+                                    class="
+                                        flex items-center rounded-xl
+                                        border border-slate-700
+                                        bg-slate-950
+                                    "
+                                >
+                                    <button
+                                        type="button"
+                                        class="
+                                            h-9 w-9 font-black
+                                            text-slate-300 transition
+                                            hover:text-cyan-300
+                                        "
+                                        @click="disminuirCantidad(item)"
+                                    >
+                                        −
+                                    </button>
+
+                                    <span
+                                        class="
+                                            min-w-10 text-center
+                                            font-black
+                                        "
+                                        x-text="item.cantidad"
+                                    ></span>
+
+                                    <button
+                                        type="button"
+                                        class="
+                                            h-9 w-9 font-black
+                                            text-slate-300 transition
+                                            hover:text-cyan-300
+                                        "
+                                        @click="aumentarCantidad(item)"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+
+                                <p
+                                    class="
+                                        text-right font-black
+                                        text-white
+                                    "
+                                    x-text="
+                                        formatearPrecio(
+                                            item.precio
+                                            * item.cantidad
+                                        )
+                                    "
+                                ></p>
+                            </div>
+                        </article>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Resumen -->
+            <div
+                x-show="carrito.length > 0"
                 class="
-                    mt-5 w-full rounded-xl
-                    bg-gradient-to-r from-cyan-400
-                    to-fuchsia-500 px-5 py-4
-                    font-black text-slate-950
-                    transition duration-300
-                    hover:scale-[1.02]
-                    hover:shadow-[0_0_28px_rgba(34,211,238,0.3)]
+                    border-t border-white/10
+                    bg-slate-950/95 px-6 py-5
                 "
             >
-                Continuar
-            </button>
-        </div>
-    </aside>
-</div>
+                <div
+                    class="
+                        flex items-center justify-between
+                        text-slate-400
+                    "
+                >
+                    <span>Productos</span>
 
-    <script>
-        function tienda() {
-            return {
-                apiDisponible: false,
-                mensajeEstado: "Comprobando API...",
-                productos: [],
-                categorias: [],
-                categoriaSeleccionada: null,
-                cargandoProductos: true,
-                errorProductos: "",
-                notificacion: "",
-                temporizadorNotificacion: null,
-                carrito: [],
-                carritoAbierto: false,
-                formularioIA: {
-                presupuesto: 4000000,
-                necesidad: "gaming",
-                descripcion: "",
-                resolucion: "1080p",
-                juegosTexto: "Valorant, Fortnite, Warzone",
-            },
-            procesandoIA: false,
-            errorIA: "",
-            recomendacionIA: null,
+                    <span
+                        x-text="cantidadCarrito()"
+                    ></span>
+                </div>
 
-                async inicializar() {
-                    this.cargarCarritoLocal();
-                    await this.comprobarApi();
-                    await this.cargarCategorias();
-                    await this.cargarProductos();
-                },
+                <div
+                    class="
+                        mt-3 flex items-center justify-between
+                    "
+                >
+                    <span class="text-lg font-bold">
+                        Total
+                    </span>
 
-                async comprobarApi() {
-                    this.apiDisponible = false;
-                    this.mensajeEstado =
-                        "Comprobando API...";
+                    <span
+                        class="
+                            text-2xl font-black text-cyan-300
+                        "
+                        x-text="formatearPrecio(totalCarrito())"
+                    ></span>
+                </div>
 
-                    try {
-                        const respuesta =
-                            await fetch("/health");
+                <p class="mt-3 text-xs leading-5 text-slate-500">
+                    Los precios y el stock serán validados nuevamente
+                    por el servidor antes del pago.
+                </p>
 
-                        if (!respuesta.ok) {
-                            throw new Error(
-                                "Respuesta no válida"
-                            );
-                        }
+                <button
+                    type="button"
+                    class="
+                        mt-5 w-full rounded-xl
+                        bg-gradient-to-r from-cyan-400
+                        to-fuchsia-500 px-5 py-4
+                        font-black text-slate-950
+                        transition duration-300
+                        hover:scale-[1.02]
+                        hover:shadow-[0_0_28px_rgba(34,211,238,0.3)]
+                    "
+                >
+                    Continuar
+                </button>
+            </div>
+        </aside>
+    </div>
 
-                        this.apiDisponible = true;
-                        this.mensajeEstado =
-                            "API conectada";
-                    } catch (error) {
-                        this.apiDisponible = false;
-                        this.mensajeEstado =
-                            "API no disponible";
-                    }
-                },
-
-                async cargarCategorias() {
-                    try {
-                        const respuesta =
-                            await fetch("/categorias");
-
-                        if (!respuesta.ok) {
-                            throw new Error(
-                                "No fue posible cargar categorías"
-                            );
-                        }
-
-                        this.categorias =
-                            await respuesta.json();
-                    } catch (error) {
-                        this.categorias = [];
-                    }
-                },
-
-                async cargarProductos() {
-                    this.cargandoProductos = true;
-                    this.errorProductos = "";
-
-                    try {
-                        const parametros =
-                            new URLSearchParams({
-                                solo_activos: "true",
-                            });
-
-                        if (
-                            this.categoriaSeleccionada !== null
-                        ) {
-                            parametros.set(
-                                "categoria_id",
-                                String(
-                                    this.categoriaSeleccionada
-                                )
-                            );
-                        }
-
-                        const url =
-                            "/productos?"
-                            + parametros.toString();
-
-                        const respuesta =
-                            await fetch(url);
-
-                        if (!respuesta.ok) {
-                            throw new Error(
-                                "No fue posible cargar"
-                            );
-                        }
-
-                        this.productos =
-                            await respuesta.json();
-                    } catch (error) {
-                        this.errorProductos =
-                            "No pudimos cargar los productos.";
-                    } finally {
-                        this.cargandoProductos = false;
-                    }
-                },
-
-                async seleccionarCategoria(
-                    categoriaId
-                ) {
-                    this.categoriaSeleccionada =
-                        categoriaId;
-
-                    await this.cargarProductos();
-                },
-
-                confirmarProducto(producto) {
-                    if (producto.stock < 1) {
-                        this.mostrarNotificacion(
-                            "Este producto no tiene stock disponible"
-                        );
-                        return;
-                    }
-
-                    const itemExistente = this.carrito.find(
-                        (item) => item.id === producto.id
-                    );
-
-                    if (itemExistente) {
-                        if (itemExistente.cantidad >= producto.stock) {
-                            this.mostrarNotificacion(
-                                "No puedes superar el stock disponible"
-                            );
-                            return;
-                        }
-
-                        itemExistente.cantidad += 1;
-                    } else {
-                        this.carrito.push({
-                            id: producto.id,
-                            nombre: producto.nombre,
-                            precio: Number(producto.precio),
-                            stock: producto.stock,
-                            imagen_url: producto.imagen_url,
-                            cantidad: 1,
-                        });
-                    }
-
-                    this.guardarCarritoLocal();
-
-                    this.mostrarNotificacion(
-                        producto.nombre + " añadido al carrito"
-
-                    
-                    );
-                },
-
-                mostrarNotificacion(mensaje) {
-                    this.notificacion = mensaje;
-
-                    clearTimeout(this.temporizadorNotificacion);
-
-                    this.temporizadorNotificacion = setTimeout(() => {
-                        this.notificacion = "";
-                    }, 2500);
-                },
-
-                guardarCarritoLocal() {
-                    localStorage.setItem(
-                        "pc-forge-carrito",
-                        JSON.stringify(this.carrito)
-                    );
-                },
-
-                cargarCarritoLocal() {
-                    try {
-                        const carritoGuardado = localStorage.getItem(
-                            "pc-forge-carrito"
-                        );
-
-                        this.carrito = carritoGuardado
-                            ? JSON.parse(carritoGuardado)
-                            : [];
-                    } catch (error) {
-                        this.carrito = [];
-                    }
-                },
-
-                cantidadCarrito() {
-                    return this.carrito.reduce(
-                        (total, item) => total + item.cantidad,
-                        0
-                    );
-                },
-
-                totalCarrito() {
-                    return this.carrito.reduce(
-                        (total, item) => {
-                            return total + item.precio * item.cantidad;
-                        },
-                        0
-                    );
-                },
-
-                aumentarCantidad(item) {
-                    if (item.cantidad >= item.stock) {
-                        this.mostrarNotificacion(
-                            "No puedes superar el stock disponible"
-                        );
-                        return;
-                    }
-
-                    item.cantidad += 1;
-                    this.guardarCarritoLocal();
-                },
-
-                disminuirCantidad(item) {
-                    if (item.cantidad <= 1) {
-                        this.eliminarDelCarrito(item.id);
-                        return;
-                    }
-
-                    item.cantidad -= 1;
-                    this.guardarCarritoLocal();
-                },
-
-                eliminarDelCarrito(productoId) {
-                    this.carrito = this.carrito.filter(
-                        (item) => item.id !== productoId
-                    );
-
-                    this.guardarCarritoLocal();
-                    this.mostrarNotificacion(
-                        "Producto eliminado del carrito"
-                    );
-                },
-
-                async solicitarRecomendacion() {
-                    this.procesandoIA = true;
-                    this.errorIA = "";
-                    this.recomendacionIA = null;
-
-                    const juegos = this.formularioIA.juegosTexto
-                        .split(",")
-                        .map((juego) => juego.trim())
-                        .filter((juego) => juego.length > 0)
-                        .slice(0, 10);
-
-                    const solicitud = {
-                        presupuesto: Number(
-                            this.formularioIA.presupuesto
-                        ),
-                        necesidad: this.formularioIA.necesidad,
-                        descripcion: this.formularioIA.descripcion,
-                        resolucion: this.formularioIA.resolucion,
-                        juegos: juegos,
-                    };
-
-                    try {
-                        const respuesta = await fetch(
-                            "/ia/recomendar-ensamble",
-                            {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify(solicitud),
-                            }
-                        );
-
-                        const datos = await respuesta.json();
-
-                        if (!respuesta.ok) {
-                            throw new Error(
-                                datos.detail
-                                || "No fue posible generar la recomendación"
-                            );
-                        }
-
-                        this.recomendacionIA = datos;
-                    } catch (error) {
-                        this.errorIA = error.message;
-                    } finally {
-                        this.procesandoIA = false;
-                    }
-                },
-
-                formatearPrecio(valor) {
-                    return new Intl.NumberFormat(
-                        "es-CO",
-                        {
-                            style: "currency",
-                            currency: "COP",
-                            maximumFractionDigits: 0,
-                        }
-                    ).format(Number(valor));
-                },
-            };
-        }
-    </script>
+    <script src="/static/js/app.js"></script>
 </body>
 </html>

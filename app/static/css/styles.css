@@ -1,0 +1,47 @@
+/* Estilos personalizados de PC Forge Colombia */
+/* Tailwind se carga vía CDN en el <head> del template; aquí solo van
+   los estilos y animaciones que no cubre Tailwind por defecto. */
+
+[x-cloak] {
+    display: none !important;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes escanear {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(120px);
+        opacity: 0;
+    }
+}
+
+.linea-escaner {
+    animation: escanear 1.4s linear infinite;
+}
+
+.animar-entrada {
+    animation: aparecer 700ms ease-out both;
+}
